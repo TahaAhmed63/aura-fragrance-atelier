@@ -54,7 +54,7 @@ const Navbar = () => {
             <img 
               src="/lovable-uploads/Logo.png" 
               alt="Bliss & Bless Logo" 
-              className="h-10 w-10 mr-2"
+              className="h-auto w-22 mr-2"
             />
             <h1 className="text-gold text-xl font-semibold font-cormorant tracking-widest">BLISS & BLESS</h1>
           </div>

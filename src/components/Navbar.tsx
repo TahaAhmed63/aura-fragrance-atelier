@@ -52,7 +52,7 @@ const Navbar = () => {
         <Link to="/" className="nav-logo">
           <div className="flex items-center">
             <img 
-              src="/lovable-uploads/04_07_2025_X-Design (1).png" 
+              src="/lovable-uploads/Logo.png" 
               alt="Bliss & Bless Logo" 
               className="h-10 w-10 mr-2"
             />

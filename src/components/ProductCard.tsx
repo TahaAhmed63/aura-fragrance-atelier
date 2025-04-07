@@ -17,15 +17,31 @@ const ProductCard = ({ product, onClick, index }: ProductCardProps) => {
     const card = cardRef.current;
     if (!card) return;
     
-    // Initial animation coming in from below with stagger
-    gsap.from(card, {
-      y: 50,
-      opacity: 0,
-      duration: 0.8,
-      delay: 2.8 + (index * 0.1),
-      ease: "power3.out"
-    });
-
+    // Use IntersectionObserver for scroll-based animations instead of fixed delay
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Animate when element comes into view
+          gsap.fromTo(card, 
+            { y: 50, opacity: 0 },
+            { 
+              y: 0,
+              opacity: 1, 
+              duration: 0.8, 
+              delay: index * 0.1, 
+              ease: "power3.out",
+              onComplete: () => {
+                // Once animation is complete, unobserve the element
+                observer.unobserve(card);
+              }
+            }
+          );
+        }
+      });
+    }, { threshold: 0.1 }); // Trigger when 10% of the element is visible
+    
+    observer.observe(card);
+    
     // Set up hover animation
     const handleMouseMove = (e: MouseEvent) => {
       if (!card) return;
@@ -77,6 +93,7 @@ const ProductCard = ({ product, onClick, index }: ProductCardProps) => {
       if (card) {
         card.removeEventListener('mousemove', handleMouseMove);
         card.removeEventListener('mouseleave', handleMouseLeave);
+        observer.unobserve(card);
       }
     };
   }, [index]);
@@ -85,7 +102,7 @@ const ProductCard = ({ product, onClick, index }: ProductCardProps) => {
     <div 
       ref={cardRef}
       className={cn(
-        "luxury-card rounded-lg overflow-hidden cursor-pointer",
+        "luxury-card rounded-lg overflow-hidden cursor-pointer opacity-0",
         "relative transform transition-all duration-300",
         "hover:translate-y-[-8px] hover:shadow-lg hover:shadow-gold/10"
       )}

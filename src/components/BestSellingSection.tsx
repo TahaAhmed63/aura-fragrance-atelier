@@ -4,28 +4,38 @@ import { Product } from '../types/product';
 import { ArrowRight } from 'lucide-react';
 import gsap from 'gsap';
 import { Link } from 'react-router-dom';
+import { products } from '../data/products';
 
-// Sample best selling products data
-const bestSellingCategories = [
-  {
-    id: 'mens',
-    title: "Men's Best Selling Perfume",
-    description: "Sophisticated and powerful fragrances crafted for the modern gentleman.",
-    image: "https://images.unsplash.com/photo-1608528577891-eb055944f2e7?q=80&w=1974&auto=format&fit=crop"
-  },
-  {
-    id: 'womens',
-    title: "Women's Best Selling Perfume",
-    description: "Elegant and captivating scents designed for unforgettable impressions.",
-    image: "https://images.unsplash.com/photo-1617184003107-0df15fea4903?q=80&w=2070&auto=format&fit=crop"
-  },
-  {
-    id: 'arabic',
-    title: "Arabic Ether",
-    description: "Exotic and luxurious fragrances with rich oud and spices from the East.",
-    image: "https://images.unsplash.com/photo-1547887537-6158d64c35b3?q=80&w=2070&auto=format&fit=crop"
-  }
-];
+// Get one product from each category
+const getBestSellingProducts = () => {
+  const mensProduct = products.find(p => p.categories.includes('Woody') && p.imageSrc.includes('608528577891'));
+  const womensProduct = products.find(p => p.categories.includes('Floral') && p.imageSrc.includes('617184003107'));
+  const arabicProduct = products.find(p => p.categories.includes('Oriental') && p.imageSrc.includes('547887537'));
+
+  return [
+    {
+      id: 'mens',
+      title: "Men's Best Selling Perfume",
+      description: "Sophisticated and powerful fragrances crafted for the modern gentleman.",
+      image: mensProduct?.imageSrc || "https://images.unsplash.com/photo-1608528577891-eb055944f2e7?q=80&w=1974&auto=format&fit=crop",
+      product: mensProduct || products[3] // Fallback to product id 4
+    },
+    {
+      id: 'womens',
+      title: "Women's Best Selling Perfume",
+      description: "Elegant and captivating scents designed for unforgettable impressions.",
+      image: womensProduct?.imageSrc || "https://images.unsplash.com/photo-1617184003107-0df15fea4903?q=80&w=2070&auto=format&fit=crop",
+      product: womensProduct || products[4] // Fallback to product id 5
+    },
+    {
+      id: 'arabic',
+      title: "Arabic Ether",
+      description: "Exotic and luxurious fragrances with rich oud and spices from the East.",
+      image: arabicProduct?.imageSrc || "https://images.unsplash.com/photo-1547887537-6158d64c35b3?q=80&w=2070&auto=format&fit=crop",
+      product: arabicProduct || products[1] // Fallback to product id 2
+    }
+  ];
+};
 
 interface BestSellingSectionProps {
   onProductSelect: (product: Product | null) => void;
@@ -34,6 +44,7 @@ interface BestSellingSectionProps {
 const BestSellingSection: React.FC<BestSellingSectionProps> = ({ onProductSelect }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const bestSellingItems = getBestSellingProducts();
   
   useEffect(() => {
     const section = sectionRef.current;
@@ -81,16 +92,17 @@ const BestSellingSection: React.FC<BestSellingSectionProps> = ({ onProductSelect
         </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-          {bestSellingCategories.map((category, index) => (
+          {bestSellingItems.map((item) => (
             <div 
-              key={category.id} 
+              key={item.id} 
               className="best-selling-card relative rounded-lg overflow-hidden h-[400px] opacity-0 group cursor-pointer"
+              onClick={() => item.product && onProductSelect(item.product)}
             >
               {/* Background image */}
               <div className="absolute inset-0">
                 <img 
-                  src={category.image} 
-                  alt={category.title} 
+                  src={item.image} 
+                  alt={item.title} 
                   className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-luxury-black to-transparent opacity-90"></div>
@@ -98,15 +110,38 @@ const BestSellingSection: React.FC<BestSellingSectionProps> = ({ onProductSelect
               
               {/* Content */}
               <div className="absolute inset-0 flex flex-col justify-end p-6">
-                <h3 className="text-2xl font-cormorant font-semibold text-white mb-2">{category.title}</h3>
-                <p className="text-sm text-gray-300 mb-6">{category.description}</p>
-                <Link 
-                  to="/shop" 
-                  className="inline-flex items-center text-gold hover:text-gold-light transition-colors"
-                >
-                  <span className="mr-2">Explore Collection</span>
-                  <ArrowRight size={16} />
-                </Link>
+                <h3 className="text-2xl font-cormorant font-semibold text-white mb-2">{item.title}</h3>
+                <p className="text-sm text-gray-300 mb-4">{item.description}</p>
+                
+                {/* Price tag */}
+                {item.product && (
+                  <div className="mb-4">
+                    <span className="inline-block bg-gold/90 text-black text-sm px-3 py-1 rounded">
+                      ${item.product.price}
+                    </span>
+                  </div>
+                )}
+                
+                <div className="flex justify-between items-center">
+                  <button 
+                    className="bg-white/10 hover:bg-white/20 text-white text-sm px-4 py-2 rounded border border-gold/50 transition-colors"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      item.product && onProductSelect(item.product);
+                    }}
+                  >
+                    View Details
+                  </button>
+                  
+                  <Link 
+                    to="/shop" 
+                    className="inline-flex items-center text-gold hover:text-gold-light transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <span className="mr-2">Explore</span>
+                    <ArrowRight size={16} />
+                  </Link>
+                </div>
               </div>
               
               {/* Gold border on hover */}

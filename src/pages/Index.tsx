@@ -9,6 +9,7 @@ import { useCart } from '../context/CartContext';
 import Preloader from '../components/Preloader';
 import { cn } from '@/lib/utils';
 import gsap from 'gsap';
+import BestSellingSection from '../components/BestSellingSection';
 
 const Index = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -65,6 +66,9 @@ const Index = () => {
             </p>
           </div>
         </header>
+        
+        {/* Best Selling Products Section */}
+        <BestSellingSection onProductSelect={setSelectedProduct} />
         
         {/* Main content */}
         <main className="luxury-container py-12">

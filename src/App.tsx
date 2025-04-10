@@ -1,41 +1,49 @@
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import Checkout from "./pages/Checkout";
-import NotFound from "./pages/NotFound";
-import Layout from "./components/Layout";
-import { CartProvider } from "./context/CartContext";
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import Index from './pages/Index';
+import NotFound from './pages/NotFound';
+import Checkout from './pages/Checkout';
+import OrderConfirmation from './pages/OrderConfirmation';
+import { CartProvider } from './context/CartContext';
+import { Toaster } from 'sonner';
+import Preloader from './components/Preloader';
+import './App.css';
 
-// Import GSAP
-import { gsap } from "gsap";
+function App() {
+  const [loading, setLoading] = useState(true);
 
-// Initialize GSAP plugins if needed
-// gsap.registerPlugin(ScrollTrigger);
+  useEffect(() => {
+    // Simulate loading assets
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
 
-const queryClient = new QueryClient();
+    return () => clearTimeout(timer);
+  }, []);
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner position="top-center" />
-      <CartProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Index />} />
-              <Route path="checkout" element={<Checkout />} />
-              <Route path="*" element={<NotFound />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </CartProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+  return (
+    <>
+      {loading ? (
+        <Preloader />
+      ) : (
+        <CartProvider>
+          <Router>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Index />} />
+                <Route path="checkout" element={<Checkout />} />
+                <Route path="order-confirmation" element={<OrderConfirmation />} />
+                <Route path="*" element={<NotFound />} />
+              </Route>
+            </Routes>
+          </Router>
+          <Toaster position="top-center" richColors />
+        </CartProvider>
+      )}
+    </>
+  );
+}
 
 export default App;

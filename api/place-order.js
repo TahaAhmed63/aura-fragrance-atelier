@@ -23,6 +23,11 @@ export default async function handler(req, res) {
       `${item.name} x ${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`
     ).join('\n');
     
+    // Add payment info to email content
+    const paymentInfo = orderData.paymentMethod === 'cod' 
+      ? 'Cash on Delivery' 
+      : `Credit/Debit Card (Payment ID: ${orderData.paymentId || 'Processed'})`;
+    
     // Create email content
     const emailContent = {
       from: process.env.EMAIL_USER || 'ataha6381@gmail.com',
@@ -63,7 +68,7 @@ export default async function handler(req, res) {
             </table>
             
             <h3 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 30px;">Payment Method</h3>
-            <p>${orderData.paymentMethod === 'cod' ? 'Cash on Delivery' : 'Credit/Debit Card'}</p>
+            <p>${paymentInfo}</p>
             
             <h3 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 30px;">Shipping Address</h3>
             <p>
@@ -97,7 +102,7 @@ export default async function handler(req, res) {
           <div style="padding: 20px;">
             <p><strong>Customer:</strong> ${orderData.customer.firstName} ${orderData.customer.lastName}</p>
             <p><strong>Email:</strong> ${orderData.customer.email}</p>
-            <p><strong>Payment Method:</strong> ${orderData.paymentMethod === 'cod' ? 'Cash on Delivery' : 'Credit/Debit Card'}</p>
+            <p><strong>Payment Method:</strong> ${paymentInfo}</p>
             <p><strong>Total Amount:</strong> $${orderData.total.toFixed(2)}</p>
             
             <h3 style="border-bottom: 1px solid #eee; padding-bottom: 10px;">Order Items</h3>

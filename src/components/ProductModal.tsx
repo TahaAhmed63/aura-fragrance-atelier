@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { Product } from '../types/product';
 import { X } from 'lucide-react';
@@ -167,7 +166,34 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
                   </div>
                 </div>
               </div>
-              
+
+            {/* Experience Section */}
+            {product.experience && (
+              <div className="border-t border-luxury-gray my-3 pt-3">
+                <h4 className="text-gold text-xs font-medium mb-2">THE EXPERIENCE</h4>
+                <div className="grid grid-cols-2 gap-2">
+                  {product.experience.map((exp, index) => (
+                    <div key={index} className="text-xs text-gray-300 flex items-center gap-1">
+                      <span className="text-gold">•</span> {exp}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Why Choose Section or Emotional Journey */}
+            {(product.whyChoose || product.emotionalJourney) && (
+              <div className="border-t border-luxury-gray my-3 pt-3">
+                <h4 className="text-gold text-xs font-medium mb-2">
+                  {product.whyChoose ? "WHY CHOOSE THIS FRAGRANCE" : "EMOTIONAL JOURNEY"}
+                </h4>
+                <p className="text-xs md:text-sm text-gray-300 italic">
+                  {product.whyChoose ? product.whyChoose[0] : product.emotionalJourney}
+                </p>
+              </div>
+            )}
+
+            {/* Price and Add to Cart Section */}
               <div className="flex justify-between items-center mb-4">
                 <span className="text-xl md:text-2xl text-gold font-cormorant font-semibold">
                   ${product.price}

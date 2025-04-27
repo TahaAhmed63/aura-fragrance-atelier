@@ -15,4 +15,7 @@ export interface Product {
   longevity: string;
   sillage: string;
   occasions: string[];
+  experience?: string[];
+  emotionalJourney?: string;
+  whyChoose?: string[];
 }

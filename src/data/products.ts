@@ -1,40 +1,65 @@
-
 import { Product } from "../types/product";
 
 export const products: Product[] = [
   {
     id: 1,
-    name: "Midnight Elixir",
-    tagline: "A captivating blend of mystery and allure",
-    description: "Midnight Elixir is a mesmerizing fragrance that opens with a burst of bergamot and black pepper, gradually unveiling a heart of rich jasmine and smoky incense. The base notes of amber, patchouli, and vanilla create a lingering warmth that captivates the senses and leaves an unforgettable impression.",
+    name: "Mukhallat Inspired Perfume",
+    tagline: "A Journey Into Opulence and Tradition",
+    description: "Step into a world of luxury, culture, and sensuality with our nano-encapsulated Mukhallat Inspired Perfume. A fragrance that takes you on an aromatic journey, blending the richness of traditional Arabic notes with modern elegance. This Oriental masterpiece is a symphony of oud, florals, spices, and sweet notes, creating a luxurious, deep, and balanced scent that connects you to an ancient heritage while offering an experience of pure indulgence.",
     price: 280,
     imageSrc: "https://images.unsplash.com/photo-1592914610354-fd354ea45e48?q=80&w=1974&auto=format&fit=crop",
     fragranceNotes: {
-      top: ["Bergamot", "Black Pepper", "Cardamom"],
-      middle: ["Jasmine", "Orris", "Incense"],
-      base: ["Amber", "Patchouli", "Vanilla", "Tonka Bean"]
+      top: ["Oud (Agarwood)", "Rose", "Saffron", "Amber"],
+      middle: ["Musk", "Sandalwood", "Patchouli"],
+      base: ["Vanilla", "Jasmine", "Cedarwood"]
     },
     categories: ["Oriental", "Woody"],
-    longevity: "8-10 hours",
-    sillage: "Moderate to heavy",
-    occasions: ["Evening", "Formal", "Winter"]
+    longevity: "12+ hours",
+    sillage: "Heavy",
+    occasions: ["Evening", "Special Occasion", "Winter"],
+    experience: [
+      "Cultural Richness",
+      "Opulent Luxury",
+      "Sensual Depth",
+      "Exotic Mystery",
+      "Personal Distinction",
+      "Spiritual Connection",
+      "Nostalgic Comfort",
+      "Enduring Presence",
+      "Ceremonial Significance",
+      "Intimate Warmth"
+    ],
+    whyChoose: ["Mukhallat is more than a fragrance; it's an emotional experience. As it evolves on your skin, it creates an aromatic journey that unfolds slowly, offering a meditative, luxurious sensation."]
   },
   {
     id: 2,
-    name: "Golden Opulence",
-    tagline: "An exquisite expression of luxury",
-    description: "Golden Opulence is an exquisite composition that embodies true luxury. Beginning with sparkling citruses and aromatic saffron, it evolves into a heart of precious rose and creamy tuberose. The magnificent dry down features sandalwood, vetiver, and rich oud, creating an aura of opulence that lasts throughout the day.",
-    price: 320,
+    name: "APOM (A Part of Me) Inspired Perfume",
+    tagline: "A Fragrance That Evokes Elegance and Intimacy",
+    description: "Step into a world of timeless beauty and personal connection with APOM (A Part of Me), a nano-encapsulated fragrance that embodies warmth, sensuality, and sophisticated grace. A perfect balance of bright florals and deep, grounding woods, this scent envelops you in a comforting embrace while offering a luminous, radiant presence.",
+    price: 250,
     imageSrc: "https://images.unsplash.com/photo-1547887537-6158d64c35b3?q=80&w=2070&auto=format&fit=crop",
     fragranceNotes: {
-      top: ["Mandarin", "Bergamot", "Saffron"],
-      middle: ["Rose", "Tuberose", "Orange Blossom"],
-      base: ["Sandalwood", "Vetiver", "Oud", "Musk"]
+      top: ["Orange Blossom", "Bergamot", "Neroli"],
+      middle: ["Ylang-Ylang", "Jasmine", "Lavender"],
+      base: ["Cedarwood", "Patchouli", "Sandalwood"]
     },
-    categories: ["Oriental", "Floral"],
-    longevity: "10-12 hours",
-    sillage: "Strong",
-    occasions: ["Special Occasion", "Evening", "Winter"]
+    categories: ["Floral", "Woody"],
+    longevity: "8-10 hours",
+    sillage: "Moderate",
+    occasions: ["Daytime", "Spring", "Summer"],
+    experience: [
+      "Mediterranean Serenity",
+      "Sophisticated Elegance",
+      "Intimate Warmth",
+      "Luminous Optimism",
+      "Natural Authenticity",
+      "Quiet Confidence",
+      "Cultural Appreciation",
+      "Refreshing Clarity",
+      "Romantic Nostalgia",
+      "Timeless Beauty"
+    ],
+    emotionalJourney: "A blend of lightness, depth, freshness, and warmth that becomes a part of you."
   },
   {
     id: 3,

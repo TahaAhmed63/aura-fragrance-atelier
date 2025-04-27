@@ -1,10 +1,14 @@
+
 import React, { useEffect, useRef } from 'react';
 import { Product } from '../types/product';
 import { X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import { cn } from '@/lib/utils';
 import gsap from 'gsap';
 import { useIsMobile } from '@/hooks/use-mobile';
+import ProductImage from './product/ProductImage';
+import FragranceNotes from './product/FragranceNotes';
+import ProductExperience from './product/ProductExperience';
+import AddToCartSection from './product/AddToCartSection';
 
 interface ProductModalProps {
   product: Product;
@@ -18,32 +22,26 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
   const [quantity, setQuantity] = React.useState(1);
   const isMobile = useIsMobile();
 
-  // Close modal on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
-    
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
   }, [onClose]);
 
-  // Close modal when clicking outside
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
       if (modalRef.current && !contentRef.current?.contains(e.target as Node)) {
         onClose();
       }
     };
-    
     document.addEventListener('mousedown', handleOutsideClick);
     return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, [onClose]);
 
-  // Animation when modal opens
   useEffect(() => {
     document.body.style.overflow = 'hidden';
-    
     gsap.set(modalRef.current, { autoAlpha: 0 });
     gsap.set(contentRef.current, { y: 50 });
     
@@ -88,145 +86,48 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
         </button>
         
         <div className="flex flex-col md:flex-row max-h-[90vh] overflow-hidden">
-          {/* Product image */}
-          <div className="md:w-5/12 h-[200px] md:h-auto">
-            <div className="h-full relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-luxury-black/40 via-transparent to-transparent z-10"></div>
-              <img 
-                src={product.imageSrc} 
-                alt={product.name} 
-                className="w-full h-full object-cover object-center"
-              />
-            </div>
-          </div>
+          <ProductImage 
+            imageSrc={product.imageSrc}
+            name={product.name}
+            categories={product.categories}
+          />
           
-          {/* Product details */}
-          <div className="md:w-7/12 p-4 md:p-6 flex flex-col overflow-y-auto" style={{ maxHeight: isMobile ? 'calc(95vh - 200px)' : '85vh' }}>
+          <div className="md:w-7/12 p-4 md:p-6 flex flex-col overflow-y-auto" 
+               style={{ maxHeight: isMobile ? 'calc(95vh - 200px)' : '85vh' }}>
             <div>
-              <div className="flex flex-wrap items-center mb-2 gap-1">
-                {product.categories.map((category, index) => (
-                  <span 
-                    key={index} 
-                    className="text-xs bg-luxury-gray text-gray-300 px-2 py-0.5 rounded mr-1 mb-1"
-                  >
-                    {category}
-                  </span>
-                ))}
-              </div>
-              
               <h2 className="text-2xl md:text-3xl font-semibold font-cormorant gold-gradient mb-1">
                 {product.name}
               </h2>
               
               <p className="text-gray-300 text-xs md:text-sm mb-3">{product.tagline}</p>
-              
               <p className="text-gray-400 text-xs md:text-sm mb-4">{product.description}</p>
               
-              <div className="border-t border-luxury-gray my-3 pt-3">
-                <h4 className="text-gold text-xs font-medium mb-2">FRAGRANCE NOTES</h4>
-                
-                <div className="grid grid-cols-3 gap-1 md:gap-2 mb-3">
-                  <div>
-                    <span className="text-xs text-gray-400">Top</span>
-                    <ul className="text-xs md:text-sm text-gray-300">
-                      {product.fragranceNotes.top.map((note, index) => (
-                        <li key={index}>{note}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  <div>
-                    <span className="text-xs text-gray-400">Middle</span>
-                    <ul className="text-xs md:text-sm text-gray-300">
-                      {product.fragranceNotes.middle.map((note, index) => (
-                        <li key={index}>{note}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  <div>
-                    <span className="text-xs text-gray-400">Base</span>
-                    <ul className="text-xs md:text-sm text-gray-300">
-                      {product.fragranceNotes.base.map((note, index) => (
-                        <li key={index}>{note}</li>
-                      ))}
-                    </ul>
-                  </div>
+              <FragranceNotes {...product.fragranceNotes} />
+
+              <div className="grid grid-cols-2 gap-2 md:gap-4 mb-4">
+                <div>
+                  <span className="text-xs text-gray-400">Longevity</span>
+                  <p className="text-xs md:text-sm text-gray-300">{product.longevity}</p>
                 </div>
-                
-                <div className="grid grid-cols-2 gap-2 md:gap-4 mb-4">
-                  <div>
-                    <span className="text-xs text-gray-400">Longevity</span>
-                    <p className="text-xs md:text-sm text-gray-300">{product.longevity}</p>
-                  </div>
-                  
-                  <div>
-                    <span className="text-xs text-gray-400">Sillage</span>
-                    <p className="text-xs md:text-sm text-gray-300">{product.sillage}</p>
-                  </div>
+                <div>
+                  <span className="text-xs text-gray-400">Sillage</span>
+                  <p className="text-xs md:text-sm text-gray-300">{product.sillage}</p>
                 </div>
               </div>
 
-            {/* Experience Section */}
-            {product.experience && (
-              <div className="border-t border-luxury-gray my-3 pt-3">
-                <h4 className="text-gold text-xs font-medium mb-2">THE EXPERIENCE</h4>
-                <div className="grid grid-cols-2 gap-2">
-                  {product.experience.map((exp, index) => (
-                    <div key={index} className="text-xs text-gray-300 flex items-center gap-1">
-                      <span className="text-gold">•</span> {exp}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+              <ProductExperience 
+                experience={product.experience}
+                whyChoose={product.whyChoose}
+                emotionalJourney={product.emotionalJourney}
+              />
 
-            {/* Why Choose Section or Emotional Journey */}
-            {(product.whyChoose || product.emotionalJourney) && (
-              <div className="border-t border-luxury-gray my-3 pt-3">
-                <h4 className="text-gold text-xs font-medium mb-2">
-                  {product.whyChoose ? "WHY CHOOSE THIS FRAGRANCE" : "EMOTIONAL JOURNEY"}
-                </h4>
-                <p className="text-xs md:text-sm text-gray-300 italic">
-                  {product.whyChoose ? product.whyChoose[0] : product.emotionalJourney}
-                </p>
-              </div>
-            )}
-
-            {/* Price and Add to Cart Section */}
-              <div className="flex justify-between items-center mb-4">
-                <span className="text-xl md:text-2xl text-gold font-cormorant font-semibold">
-                  ${product.price}
-                </span>
-                
-                <div className="flex items-center">
-                  <button 
-                    onClick={decrementQuantity}
-                    className="bg-luxury-gray h-7 w-7 md:h-8 md:w-8 flex items-center justify-center rounded-l"
-                  >
-                    -
-                  </button>
-                  <span className="bg-luxury-dark h-7 w-8 md:h-8 md:w-10 flex items-center justify-center">
-                    {quantity}
-                  </span>
-                  <button 
-                    onClick={incrementQuantity}
-                    className="bg-luxury-gray h-7 w-7 md:h-8 md:w-8 flex items-center justify-center rounded-r"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-              
-              <button
-                onClick={handleAddToCart}
-                className={cn(
-                  "btn-gold rounded w-full py-2 md:py-3",
-                  "transform transition hover:scale-[1.02] active:scale-[0.98]"
-                )}
-              >
-                Add to Cart
-              </button>
+              <AddToCartSection 
+                price={product.price}
+                quantity={quantity}
+                onIncrement={incrementQuantity}
+                onDecrement={decrementQuantity}
+                onAddToCart={handleAddToCart}
+              />
             </div>
           </div>
         </div>

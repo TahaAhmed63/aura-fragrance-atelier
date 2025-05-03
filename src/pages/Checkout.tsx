@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -164,7 +163,7 @@ const Checkout = () => {
               <div className="space-y-4 mb-6">
                 {cart.map((item) => (
                   <div 
-                    key={item.id}
+                    key={item.id.toString()}
                     className="checkout-item flex border-b border-luxury-gray pb-4"
                   >
                     <div className="w-20 h-20 rounded overflow-hidden">

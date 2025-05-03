@@ -75,7 +75,7 @@ const Cart = () => {
             <div className="space-y-4 mb-6">
               {cart.map((item) => (
                 <div 
-                  key={item.id} 
+                  key={item.id.toString()} 
                   className="flex border-b border-luxury-gray pb-4"
                 >
                   <div className="w-20 h-20 rounded overflow-hidden">

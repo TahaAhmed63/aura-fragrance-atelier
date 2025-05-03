@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { Product } from '../types/product';
 import { ArrowRight } from 'lucide-react';
@@ -6,11 +5,16 @@ import gsap from 'gsap';
 import { Link } from 'react-router-dom';
 import { products } from '../data/products';
 
-// Get one product from each category
+// Function to get best selling products by automatically identifying products with variants
 const getBestSellingProducts = () => {
-  const mensProduct = products.find(p => p.id === 4); // Celestial Oud (the one with variants)
-  const womensProduct = products.find(p => p.categories.includes('Floral') && p.imageSrc.includes('617184003107'));
-  const arabicProduct = products.find(p => p.categories.includes('Oriental') && p.imageSrc.includes('547887537'));
+  // Find a product with variants for men's category
+  const mensProduct = products.find(p => p.variants && p.variants.length > 0);
+  
+  // Find a product in the Floral category for women (without requiring a specific image)
+  const womensProduct = products.find(p => p.categories.includes('Floral'));
+  
+  // Find a product in the Oriental category for Arabic (without requiring a specific image)
+  const arabicProduct = products.find(p => p.categories.includes('Oriental') && p.id !== mensProduct?.id);
 
   return [
     {
@@ -18,24 +22,24 @@ const getBestSellingProducts = () => {
       title: "Men's Best Selling Perfume",
       description: "Sophisticated and powerful fragrances crafted for the modern gentleman.",
       image: mensProduct?.imageSrc || "https://images.unsplash.com/photo-1608528577891-eb055944f2e7?q=80&w=1974&auto=format&fit=crop",
-      product: mensProduct || products[3],
-      hasVariants: mensProduct?.variants && mensProduct.variants.length > 0
+      product: mensProduct || products[0],
+      hasVariants: !!(mensProduct?.variants && mensProduct.variants.length > 0)
     },
     {
       id: 'womens',
       title: "Women's Best Selling Perfume",
       description: "Elegant and captivating scents designed for unforgettable impressions.",
       image: womensProduct?.imageSrc || "https://images.unsplash.com/photo-1617184003107-0df15fea4903?q=80&w=2070&auto=format&fit=crop",
-      product: womensProduct || products[4],
-      hasVariants: false
+      product: womensProduct || products[1],
+      hasVariants: !!(womensProduct?.variants && womensProduct.variants.length > 0)
     },
     {
       id: 'arabic',
       title: "Arabic Ether",
       description: "Exotic and luxurious fragrances with rich oud and spices from the East.",
       image: arabicProduct?.imageSrc || "https://images.unsplash.com/photo-1547887537-6158d64c35b3?q=80&w=2070&auto=format&fit=crop",
-      product: arabicProduct || products[1],
-      hasVariants: false
+      product: arabicProduct || products[2],
+      hasVariants: !!(arabicProduct?.variants && arabicProduct.variants.length > 0)
     }
   ];
 };

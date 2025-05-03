@@ -1,4 +1,12 @@
 
+export interface ProductVariant {
+  id: string;
+  name: string;
+  price?: number;
+  description?: string;
+  imageSrc?: string;
+}
+
 export interface Product {
   id: number;
   name: string;
@@ -18,4 +26,5 @@ export interface Product {
   experience?: string[];
   emotionalJourney?: string;
   whyChoose?: string[];
+  variants?: ProductVariant[];
 }

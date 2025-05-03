@@ -8,7 +8,7 @@ import { products } from '../data/products';
 
 // Get one product from each category
 const getBestSellingProducts = () => {
-  const mensProduct = products.find(p => p.categories.includes('Woody') && p.imageSrc.includes('608528577891'));
+  const mensProduct = products.find(p => p.id === 4); // Celestial Oud (the one with variants)
   const womensProduct = products.find(p => p.categories.includes('Floral') && p.imageSrc.includes('617184003107'));
   const arabicProduct = products.find(p => p.categories.includes('Oriental') && p.imageSrc.includes('547887537'));
 
@@ -18,21 +18,24 @@ const getBestSellingProducts = () => {
       title: "Men's Best Selling Perfume",
       description: "Sophisticated and powerful fragrances crafted for the modern gentleman.",
       image: mensProduct?.imageSrc || "https://images.unsplash.com/photo-1608528577891-eb055944f2e7?q=80&w=1974&auto=format&fit=crop",
-      product: mensProduct || products[3] // Fallback to product id 4
+      product: mensProduct || products[3],
+      hasVariants: mensProduct?.variants && mensProduct.variants.length > 0
     },
     {
       id: 'womens',
       title: "Women's Best Selling Perfume",
       description: "Elegant and captivating scents designed for unforgettable impressions.",
       image: womensProduct?.imageSrc || "https://images.unsplash.com/photo-1617184003107-0df15fea4903?q=80&w=2070&auto=format&fit=crop",
-      product: womensProduct || products[4] // Fallback to product id 5
+      product: womensProduct || products[4],
+      hasVariants: false
     },
     {
       id: 'arabic',
       title: "Arabic Ether",
       description: "Exotic and luxurious fragrances with rich oud and spices from the East.",
       image: arabicProduct?.imageSrc || "https://images.unsplash.com/photo-1547887537-6158d64c35b3?q=80&w=2070&auto=format&fit=crop",
-      product: arabicProduct || products[1] // Fallback to product id 2
+      product: arabicProduct || products[1],
+      hasVariants: false
     }
   ];
 };
@@ -113,12 +116,18 @@ const BestSellingSection: React.FC<BestSellingSectionProps> = ({ onProductSelect
                 <h3 className="text-2xl font-cormorant font-semibold text-white mb-2">{item.title}</h3>
                 <p className="text-sm text-gray-300 mb-4">{item.description}</p>
                 
-                {/* Price tag */}
+                {/* Price tag and variants badge */}
                 {item.product && (
-                  <div className="mb-4">
+                  <div className="mb-4 flex items-center gap-2">
                     <span className="inline-block bg-gold/90 text-black text-sm px-3 py-1 rounded">
                       ${item.product.price}
                     </span>
+                    
+                    {item.hasVariants && (
+                      <span className="inline-block bg-luxury-gray/60 text-gold text-xs px-2 py-1 rounded border border-gold/30">
+                        Multiple Variants
+                      </span>
+                    )}
                   </div>
                 )}
                 

@@ -93,7 +93,28 @@ export const products: Product[] = [
     categories: ["Woody", "Oriental"],
     longevity: "12+ hours",
     sillage: "Heavy",
-    occasions: ["Formal", "Special Occasion", "Winter"]
+    occasions: ["Formal", "Special Occasion", "Winter"],
+    variants: [
+      {
+        id: "intense",
+        name: "Celestial Oud Intense",
+        price: 430,
+        description: "A more concentrated version with enhanced oud and incense notes for a deeper, more mysterious experience."
+      },
+      {
+        id: "limited",
+        name: "Celestial Oud Limited Edition",
+        price: 490,
+        description: "Enriched with rare agarwood and saffron from Kashmir, packaged in a hand-crafted crystal bottle.",
+        imageSrc: "https://images.unsplash.com/photo-1557170334-a9086d21c4a1?q=80&w=2036&auto=format&fit=crop"
+      },
+      {
+        id: "travel",
+        name: "Celestial Oud Travel Size",
+        price: 190,
+        description: "The same divine fragrance in a compact, travel-friendly size perfect for your journeys."
+      }
+    ]
   },
   {
     id: 5,

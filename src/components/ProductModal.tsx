@@ -1,10 +1,12 @@
-import React, { useEffect, useRef } from 'react';
-import { Product } from '../types/product';
+
+import React, { useEffect, useRef, useState } from 'react';
+import { Product, ProductVariant } from '../types/product';
 import { X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { cn } from '@/lib/utils';
 import gsap from 'gsap';
 import { useIsMobile } from '@/hooks/use-mobile';
+import ProductVariantSelector from './ProductVariantSelector';
 
 interface ProductModalProps {
   product: Product;
@@ -15,8 +17,19 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
   const { addToCart } = useCart();
   const modalRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const [quantity, setQuantity] = React.useState(1);
+  const [quantity, setQuantity] = useState(1);
   const isMobile = useIsMobile();
+  
+  // State for selected variant
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
+
+  // Current displayed product details (base or variant)
+  const currentProduct = {
+    name: selectedVariant?.name || product.name,
+    price: selectedVariant?.price || product.price,
+    imageSrc: selectedVariant?.imageSrc || product.imageSrc,
+    description: selectedVariant?.description || product.description
+  };
 
   // Close modal on escape key
   useEffect(() => {
@@ -57,7 +70,20 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
   }, []);
 
   const handleAddToCart = () => {
-    addToCart(product, quantity);
+    if (selectedVariant) {
+      // Create a modified product with the variant details
+      const variantProduct = {
+        ...product,
+        id: product.id + "-" + selectedVariant.id,
+        name: selectedVariant.name,
+        price: selectedVariant.price || product.price,
+        imageSrc: selectedVariant.imageSrc || product.imageSrc,
+        description: selectedVariant.description || product.description
+      };
+      addToCart(variantProduct, quantity);
+    } else {
+      addToCart(product, quantity);
+    }
     onClose();
   };
 
@@ -93,8 +119,8 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
             <div className="h-full relative">
               <div className="absolute inset-0 bg-gradient-to-br from-luxury-black/40 via-transparent to-transparent z-10"></div>
               <img 
-                src={product.imageSrc} 
-                alt={product.name} 
+                src={currentProduct.imageSrc} 
+                alt={currentProduct.name} 
                 className="w-full h-full object-cover object-center"
               />
             </div>
@@ -115,12 +141,27 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
               </div>
               
               <h2 className="text-2xl md:text-3xl font-semibold font-cormorant gold-gradient mb-1">
-                {product.name}
+                {currentProduct.name}
               </h2>
               
               <p className="text-gray-300 text-xs md:text-sm mb-3">{product.tagline}</p>
               
-              <p className="text-gray-400 text-xs md:text-sm mb-4">{product.description}</p>
+              <p className="text-gray-400 text-xs md:text-sm mb-4">{currentProduct.description}</p>
+
+              {/* Variants selector */}
+              {product.variants && product.variants.length > 0 && (
+                <ProductVariantSelector 
+                  variants={product.variants}
+                  selectedVariant={selectedVariant}
+                  baseProduct={{
+                    name: product.name,
+                    price: product.price,
+                    imageSrc: product.imageSrc,
+                    description: product.description
+                  }}
+                  onSelectVariant={setSelectedVariant}
+                />
+              )}
               
               <div className="border-t border-luxury-gray my-3 pt-3">
                 <h4 className="text-gold text-xs font-medium mb-2">FRAGRANCE NOTES</h4>
@@ -196,7 +237,7 @@ const ProductModal = ({ product, onClose }: ProductModalProps) => {
             {/* Price and Add to Cart Section */}
               <div className="flex justify-between items-center mb-4">
                 <span className="text-xl md:text-2xl text-gold font-cormorant font-semibold">
-                  ${product.price}
+                  ${currentProduct.price}
                 </span>
                 
                 <div className="flex items-center">

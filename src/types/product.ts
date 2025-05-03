@@ -8,7 +8,7 @@ export interface ProductVariant {
 }
 
 export interface Product {
-  id: number;
+  id: number | string;  // Updated to accept both number and string
   name: string;
   tagline: string;
   description: string;

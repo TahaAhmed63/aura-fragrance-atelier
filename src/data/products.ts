@@ -1,3 +1,4 @@
+
 import { Product } from "../types/product";
 
 export const products: Product[] = [
@@ -29,7 +30,8 @@ export const products: Product[] = [
       "Ceremonial Significance",
       "Intimate Warmth"
     ],
-    whyChoose: ["Mukhallat is more than a fragrance; it's an emotional experience. As it evolves on your skin, it creates an aromatic journey that unfolds slowly, offering a meditative, luxurious sensation."]
+    whyChoose: ["Mukhallat is more than a fragrance; it's an emotional experience. As it evolves on your skin, it creates an aromatic journey that unfolds slowly, offering a meditative, luxurious sensation."],
+    isArabicBestSelling: true
   },
   {
     id: 2,
@@ -114,7 +116,8 @@ export const products: Product[] = [
         price: 190,
         description: "The same divine fragrance in a compact, travel-friendly size perfect for your journeys."
       }
-    ]
+    ],
+    isMensBestSelling: true
   },
   {
     id: 5,
@@ -131,7 +134,8 @@ export const products: Product[] = [
     categories: ["Citrus", "Floral"],
     longevity: "5-7 hours",
     sillage: "Moderate",
-    occasions: ["Daytime", "Spring", "Summer"]
+    occasions: ["Daytime", "Spring", "Summer"],
+    isWomensBestSelling: true
   },
   {
     id: 6,

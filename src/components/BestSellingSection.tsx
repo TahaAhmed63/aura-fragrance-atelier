@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { Product } from '../types/product';
 import { ArrowRight } from 'lucide-react';
@@ -5,41 +6,42 @@ import gsap from 'gsap';
 import { Link } from 'react-router-dom';
 import { products } from '../data/products';
 
-// Function to get best selling products by automatically identifying products with variants
+// Function to get best selling products based on flags in product data
 const getBestSellingProducts = () => {
-  // Find a product with variants for men's category
-  const mensProduct = products.find(p => p.variants && p.variants.length > 0);
-  
-  // Find a product in the Floral category for women (without requiring a specific image)
-  const womensProduct = products.find(p => p.categories.includes('Floral'));
-  
-  // Find a product in the Oriental category for Arabic (without requiring a specific image)
-  const arabicProduct = products.find(p => p.categories.includes('Oriental') && p.id !== mensProduct?.id);
+  // Find products with bestselling flags
+  const mensProduct = products.find(p => p.isMensBestSelling === true);
+  const womensProduct = products.find(p => p.isWomensBestSelling === true);
+  const arabicProduct = products.find(p => p.isArabicBestSelling === true);
+
+  // Fallback products from categories if no flags are set
+  const fallbackMens = mensProduct || products.find(p => p.variants && p.variants.length > 0);
+  const fallbackWomens = womensProduct || products.find(p => p.categories.includes('Floral'));
+  const fallbackArabic = arabicProduct || products.find(p => p.categories.includes('Oriental') && p.id !== mensProduct?.id);
 
   return [
     {
       id: 'mens',
       title: "Men's Best Selling Perfume",
       description: "Sophisticated and powerful fragrances crafted for the modern gentleman.",
-      image: mensProduct?.imageSrc || "https://images.unsplash.com/photo-1608528577891-eb055944f2e7?q=80&w=1974&auto=format&fit=crop",
-      product: mensProduct || products[0],
-      hasVariants: !!(mensProduct?.variants && mensProduct.variants.length > 0)
+      image: fallbackMens?.imageSrc || "https://images.unsplash.com/photo-1608528577891-eb055944f2e7?q=80&w=1974&auto=format&fit=crop",
+      product: fallbackMens || products[0],
+      hasVariants: !!(fallbackMens?.variants && fallbackMens.variants.length > 0)
     },
     {
       id: 'womens',
       title: "Women's Best Selling Perfume",
       description: "Elegant and captivating scents designed for unforgettable impressions.",
-      image: womensProduct?.imageSrc || "https://images.unsplash.com/photo-1617184003107-0df15fea4903?q=80&w=2070&auto=format&fit=crop",
-      product: womensProduct || products[1],
-      hasVariants: !!(womensProduct?.variants && womensProduct.variants.length > 0)
+      image: fallbackWomens?.imageSrc || "https://images.unsplash.com/photo-1617184003107-0df15fea4903?q=80&w=2070&auto=format&fit=crop",
+      product: fallbackWomens || products[1],
+      hasVariants: !!(fallbackWomens?.variants && fallbackWomens.variants.length > 0)
     },
     {
       id: 'arabic',
       title: "Arabic Ether",
       description: "Exotic and luxurious fragrances with rich oud and spices from the East.",
-      image: arabicProduct?.imageSrc || "https://images.unsplash.com/photo-1547887537-6158d64c35b3?q=80&w=2070&auto=format&fit=crop",
-      product: arabicProduct || products[2],
-      hasVariants: !!(arabicProduct?.variants && arabicProduct.variants.length > 0)
+      image: fallbackArabic?.imageSrc || "https://images.unsplash.com/photo-1547887537-6158d64c35b3?q=80&w=2070&auto=format&fit=crop",
+      product: fallbackArabic || products[2],
+      hasVariants: !!(fallbackArabic?.variants && fallbackArabic.variants.length > 0)
     }
   ];
 };

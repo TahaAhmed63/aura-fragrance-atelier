@@ -8,7 +8,7 @@ export interface ProductVariant {
 }
 
 export interface Product {
-  id: number | string;  // Updated to accept both number and string
+  id: number | string;
   name: string;
   tagline: string;
   description: string;
@@ -27,4 +27,8 @@ export interface Product {
   emotionalJourney?: string;
   whyChoose?: string[];
   variants?: ProductVariant[];
+  // Add bestselling flags
+  isMensBestSelling?: boolean;
+  isWomensBestSelling?: boolean;
+  isArabicBestSelling?: boolean;
 }

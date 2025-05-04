@@ -42,12 +42,12 @@ const Index = () => {
       ease: "power2.out"
     });
     
-    // Animate the banner
-    gsap.from('.perfume-banner', {
+    // Animate the explore button
+    gsap.from('.explore-button', {
       opacity: 0,
-      scale: 0.95,
-      duration: 1,
+      y: 20,
       delay: 3.2,
+      duration: 0.8,
       ease: "power2.out"
     });
   }, []);
@@ -57,61 +57,38 @@ const Index = () => {
       <Preloader />
       
       <div className="min-h-screen bg-luxury-black text-white">
-        {/* Header hero */}
-        <header className="relative min-h-[60vh] flex items-center justify-center">
+        {/* Header hero with perfume image background */}
+        <header className="relative min-h-[80vh] flex items-center justify-center">
           <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute inset-0 bg-luxury-black/50"></div>
+            <img 
+              src="/lovable-uploads/05f2fd51-26fe-45ec-94cf-7fc4a49faefd.png" 
+              alt="Luxury Perfume Background" 
+              className="w-full h-full object-cover opacity-30"
+            />
+            <div className="absolute inset-0 bg-luxury-black/70"></div>
             <div className="absolute inset-0 bg-gradient-to-b from-luxury-black via-transparent to-luxury-black"></div>
           </div>
           
           <div className="luxury-container relative z-10 text-center mt-20">
-            <h1 className="main-title text-4xl md:text-5xl lg:text-6xl font-cormorant font-bold mb-6">
+            <h1 className="main-title text-4xl md:text-5xl lg:text-6xl font-cormorant font-bold mb-6 gold-gradient">
               {Array.from("Luxury Fragrances").map((char, index) => (
                 <span key={index} className="inline-block">{char === " " ? "\u00A0" : char}</span>
               ))}
             </h1>
-            <p className="main-subtitle text-gray-300 text-lg max-w-xl mx-auto">
+            <p className="main-subtitle text-gray-300 text-lg max-w-xl mx-auto mb-8">
               Discover our collection of exquisite perfumes, crafted with the finest ingredients to create unforgettable sensory experiences.
             </p>
+            <button 
+              className="explore-button bg-gold hover:bg-gold-light text-luxury-black font-medium px-6 py-3 rounded-sm transition-colors"
+              onClick={() => {
+                const mokhalatProduct = products.find(p => p.name.includes('Mokhalat') || p.categories.includes('Oriental'));
+                if (mokhalatProduct) setSelectedProduct(mokhalatProduct);
+              }}
+            >
+              Explore Collection
+            </button>
           </div>
         </header>
-        
-        {/* Perfume Banner */}
-        <div className="perfume-banner relative py-16 bg-gradient-to-b from-luxury-black to-[#3c1c0e] overflow-hidden">
-          <div className="luxury-container flex flex-col md:flex-row items-center justify-between">
-            <div className="md:w-1/2 mb-8 md:mb-0 text-left">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-cormorant font-bold mb-4 gold-gradient">
-                Mokhalat
-              </h2>
-              <p className="text-gold-light text-xl mb-6 font-cormorant italic">
-                Discover the essence of luxury
-              </p>
-              <p className="text-gray-300 mb-8 max-w-md">
-                Indulge in the rich, exotic fragrance of Mokhalat, a masterpiece of perfumery that combines rare oud, precious spices, and delicate florals for an unforgettable sensory experience.
-              </p>
-              <button 
-                onClick={() => {
-                  const mokhalatProduct = products.find(p => p.name.includes('Mokhalat') || p.categories.includes('Oriental'));
-                  if (mokhalatProduct) setSelectedProduct(mokhalatProduct);
-                }}
-                className="bg-gold hover:bg-gold-light text-luxury-black font-medium px-6 py-3 rounded-sm transition-colors"
-              >
-                Explore Mokhalat
-              </button>
-            </div>
-            <div className="md:w-1/2 flex justify-center md:justify-end relative">
-              <div className="relative w-[300px] h-[400px] overflow-hidden">
-                <img 
-                  src="/lovable-uploads/05f2fd51-26fe-45ec-94cf-7fc4a49faefd.png" 
-                  alt="Mokhalat Luxury Fragrance" 
-                  className="w-full h-full object-contain"
-                />
-                <div className="absolute -bottom-10 -left-10 -right-10 h-20 bg-gradient-to-t from-[#3c1c0e] to-transparent"></div>
-              </div>
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gold/10 rounded-full blur-3xl -z-10"></div>
-            </div>
-          </div>
-        </div>
         
         {/* Best Selling Products Section */}
         <BestSellingSection onProductSelect={setSelectedProduct} />

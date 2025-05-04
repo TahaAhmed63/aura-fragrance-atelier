@@ -61,11 +61,11 @@ const Index = () => {
         <header className="relative min-h-[80vh] flex items-center justify-center">
           <div className="absolute inset-0 overflow-hidden">
             <img 
-              src="/lovable-uploads/05f2fd51-26fe-45ec-94cf-7fc4a49faefd.png" 
-              alt="Luxury Perfume Background" 
-              className="w-full h-full object-cover opacity-30"
+              src="/lovable-uploads/30f1ca38-b44c-4a32-9c24-576eb3dff6c8.png" 
+              alt="Mokhalat Perfume Background" 
+              className="w-full h-full object-cover opacity-80"
             />
-            <div className="absolute inset-0 bg-luxury-black/70"></div>
+            <div className="absolute inset-0 bg-luxury-black/60"></div>
             <div className="absolute inset-0 bg-gradient-to-b from-luxury-black via-transparent to-luxury-black"></div>
           </div>
           

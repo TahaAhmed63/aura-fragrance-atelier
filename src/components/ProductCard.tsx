@@ -52,28 +52,25 @@ const ProductCard = ({ product, onClick, index }: ProductCardProps) => {
   return (
     <div 
       ref={cardRef}
-      className={cn(
-        "relative bg-perfume-darkPurple rounded overflow-hidden cursor-pointer opacity-0",
-        "transform transition-all duration-300",
-        "hover:translate-y-[-8px]"
-      )}
+      className="relative bg-perfume-darkPurple rounded-lg overflow-hidden cursor-pointer opacity-0 shadow-lg"
       onClick={onClick}
     >
       <div className="relative h-64 overflow-hidden bg-perfume-blue/30 flex items-center justify-center">
         <img
           src={product.imageSrc}
           alt={product.name}
-          className="h-[85%] object-contain"
+          className="h-[85%] object-contain transform transition-all duration-300 hover:scale-105"
         />
       </div>
       
-      <div className="p-4 text-left">
+      <div className="p-6 text-left">
         <h3 className="text-xl font-semibold text-white mb-1">{product.name}</h3>
         <p className="text-sm text-yellow-400 mb-3">Inspired Perfume</p>
         
         <div className="flex justify-between items-center mt-4">
           <span className="text-sm text-gray-400">{product.longevity}</span>
-          <button className="px-4 py-1.5 bg-yellow-400 text-perfume-darkPurple text-xs font-semibold rounded flex items-center gap-1">
+          <button className="px-4 py-2 bg-yellow-400 text-perfume-darkPurple text-sm font-semibold rounded-md flex items-center gap-2">
+            <ShoppingCart size={16} />
             ADD TO CART
           </button>
         </div>

@@ -64,6 +64,14 @@ export default {
 					gray: '#232323',
 					light: '#393939',
 					silver: '#C0C0C0'
+				},
+				// New custom colors for the purple theme
+				perfume: {
+					purple: '#1E0B43',
+					darkPurple: '#120728',
+					blue: '#0F1B4D',
+					highlight: '#FFD700',
+					text: '#FFFFFF'
 				}
 			},
 			borderRadius: {
@@ -99,6 +107,9 @@ export default {
 				'fade-in': 'fade-in 0.6s ease-out',
 				'slide-in': 'slide-in 0.4s ease-out',
 				'floating': 'floating 6s ease-in-out infinite',
+			},
+			backgroundImage: {
+				'purple-gradient': 'linear-gradient(135deg, #1E0B43 0%, #0F1B4D 100%)',
 			}
 		}
 	},

@@ -7,33 +7,33 @@
 
 @layer base {
   :root {
-    --background: 0 0% 3.9%;
+    --background: 260 60% 10%;
     --foreground: 0 0% 98%;
 
-    --card: 0 0% 3.9%;
+    --card: 260 60% 12%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 3.9%;
+    --popover: 260 60% 10%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 47 65% 50%;
+    --primary: 270 70% 59%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 0 0% 14.9%;
+    --secondary: 260 30% 20%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 0 0% 14.9%;
+    --muted: 260 30% 20%;
     --muted-foreground: 0 0% 63.9%;
 
-    --accent: 0 0% 14.9%;
+    --accent: 260 40% 30%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 47 65% 50%;
+    --border: 260 30% 25%;
+    --input: 260 30% 25%;
+    --ring: 270 70% 59%;
 
     --radius: 0.5rem;
   }
@@ -49,7 +49,7 @@
   }
 
   body {
-    @apply bg-luxury-black text-foreground antialiased font-montserrat overflow-x-hidden;
+    @apply bg-purple-900 text-foreground antialiased font-montserrat overflow-x-hidden;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -66,31 +66,31 @@
     font-family: 'Montserrat', sans-serif;
   }
   
-  .luxury-card {
-    @apply bg-luxury-dark border border-luxury-gray hover:border-gold/30 transition-all duration-300;
+  .purple-card {
+    @apply bg-purple-800/80 border border-purple-700/30 hover:border-purple-500/30 transition-all duration-300;
   }
   
   .luxury-container {
     @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
   
-  .gold-gradient {
-    @apply bg-gradient-to-r from-gold-dark via-gold to-gold-light bg-clip-text text-transparent;
+  .purple-gradient-text {
+    @apply bg-gradient-to-r from-purple-300 via-purple-400 to-purple-300 bg-clip-text text-transparent;
   }
   
-  .btn-gold {
-    @apply bg-gold hover:bg-gold-light text-black font-medium transition-colors duration-300;
+  .btn-purple {
+    @apply bg-purple-600 hover:bg-purple-500 text-white font-medium transition-colors duration-300;
   }
   
   .btn-dark {
-    @apply bg-luxury-dark hover:bg-luxury-gray border border-gold/40 text-gold hover:text-gold-light transition-colors duration-300;
+    @apply bg-purple-900 hover:bg-purple-800 border border-purple-700/40 text-purple-300 hover:text-purple-200 transition-colors duration-300;
   }
 }
 
 .loader {
   width: 48px;
   height: 48px;
-  border: 3px solid #D4AF37;
+  border: 3px solid #8B5CF6;
   border-radius: 50%;
   display: inline-block;
   position: relative;
@@ -123,6 +123,6 @@
 
 /* Glass effect for modals */
 .glass-morphism {
-  @apply backdrop-blur-md bg-black/80 border border-luxury-gray;
-  box-shadow: 0 4px 30px rgba(212, 175, 55, 0.1);
+  @apply backdrop-blur-md bg-purple-900/80 border border-purple-700/50;
+  box-shadow: 0 4px 30px rgba(139, 92, 246, 0.1);
 }

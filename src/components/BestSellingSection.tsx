@@ -3,9 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { Product } from '../types/product';
 import { ArrowRight } from 'lucide-react';
 import gsap from 'gsap';
-import { Link } from 'react-router-dom';
 import { products } from '../data/products';
-import { cn } from '@/lib/utils';
 
 // Function to get best selling products based on flags in product data
 const getBestSellingProducts = () => {
@@ -82,9 +80,9 @@ const BestSellingSection: React.FC<BestSellingSectionProps> = ({ onProductSelect
   }, []);
   
   return (
-    <section ref={sectionRef} className="py-16 bg-perfume-purple">
+    <section ref={sectionRef} className="py-20 bg-gradient-to-b from-purple-950 to-purple-900">
       <div className="luxury-container">
-        <h2 ref={titleRef} className="text-4xl font-bold text-white text-center mb-12">
+        <h2 ref={titleRef} className="text-4xl font-bold text-white text-center mb-12 purple-gradient-text">
           Best Selling Collections
         </h2>
         
@@ -92,12 +90,12 @@ const BestSellingSection: React.FC<BestSellingSectionProps> = ({ onProductSelect
           {bestSellingItems.map((item) => (
             <div 
               key={item.id} 
-              className="best-selling-card relative rounded-lg overflow-hidden h-[400px] opacity-0 group cursor-pointer shadow-xl"
+              className="best-selling-card relative rounded-xl overflow-hidden h-[450px] opacity-0 group cursor-pointer shadow-xl"
               onClick={() => item.product && onProductSelect(item.product)}
             >
               {/* Dark overlay and background */}
-              <div className="absolute inset-0 bg-perfume-blue rounded-lg overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-perfume-purple/90 to-perfume-blue/90"></div>
+              <div className="absolute inset-0 bg-purple-800 rounded-xl overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-purple-950/90 to-purple-800/90"></div>
               </div>
               
               {/* Image */}
@@ -112,8 +110,8 @@ const BestSellingSection: React.FC<BestSellingSectionProps> = ({ onProductSelect
               {/* Content */}
               <div className="absolute bottom-0 left-0 w-full p-8 z-20">
                 <h3 className="text-3xl font-cormorant font-semibold text-white mb-2">{item.title}</h3>
-                <p className="text-gray-300 mb-4 max-w-md">{item.description}</p>
-                <button className="px-6 py-2 bg-yellow-400 text-perfume-darkPurple font-medium rounded-md inline-flex items-center gap-2">
+                <p className="text-purple-200 mb-6 max-w-md">{item.description}</p>
+                <button className="px-6 py-3 bg-purple-500 hover:bg-purple-400 text-white font-medium rounded-md inline-flex items-center gap-2 transition-colors">
                   SHOP NOW
                   <ArrowRight size={16} />
                 </button>
@@ -124,16 +122,16 @@ const BestSellingSection: React.FC<BestSellingSectionProps> = ({ onProductSelect
         
         {/* Category filter buttons */}
         <div className="mt-16 flex flex-wrap justify-center gap-4">
-          <button className="px-8 py-3 bg-yellow-400 text-perfume-darkPurple font-medium rounded-full shadow-md">
+          <button className="px-8 py-3 bg-purple-500 hover:bg-purple-400 text-white font-medium rounded-full shadow-lg transition-colors">
             ALL
           </button>
-          <button className="px-8 py-3 bg-perfume-darkPurple text-white font-medium rounded-full border border-perfume-purple/50 shadow-md hover:bg-perfume-blue/50 transition-colors">
+          <button className="px-8 py-3 bg-purple-900/80 hover:bg-purple-800 text-purple-200 font-medium rounded-full border border-purple-700/50 shadow-lg transition-colors">
             MEN
           </button>
-          <button className="px-8 py-3 bg-perfume-darkPurple text-white font-medium rounded-full border border-perfume-purple/50 shadow-md hover:bg-perfume-blue/50 transition-colors">
+          <button className="px-8 py-3 bg-purple-900/80 hover:bg-purple-800 text-purple-200 font-medium rounded-full border border-purple-700/50 shadow-lg transition-colors">
             WOMEN
           </button>
-          <button className="px-8 py-3 bg-perfume-darkPurple text-white font-medium rounded-full border border-perfume-purple/50 shadow-md hover:bg-perfume-blue/50 transition-colors">
+          <button className="px-8 py-3 bg-purple-900/80 hover:bg-purple-800 text-purple-200 font-medium rounded-full border border-purple-700/50 shadow-lg transition-colors">
             UNISEX
           </button>
         </div>

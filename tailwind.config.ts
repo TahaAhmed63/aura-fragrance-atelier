@@ -65,13 +65,19 @@ export default {
 					light: '#393939',
 					silver: '#C0C0C0'
 				},
-				// New custom colors for the purple theme
-				perfume: {
-					purple: '#1E0B43',
-					darkPurple: '#120728',
-					blue: '#0F1B4D',
-					highlight: '#FFD700',
-					text: '#FFFFFF'
+				// New purple theme colors
+				purple: {
+					50: '#F5F3FF',
+					100: '#EDE9FE',
+					200: '#DDD6FE',
+					300: '#C4B5FD',
+					400: '#A78BFA',
+					500: '#8B5CF6',
+					600: '#7C3AED',
+					700: '#6D28D9',
+					800: '#5B21B6',
+					900: '#4C1D95',
+					950: '#2E1065'
 				}
 			},
 			borderRadius: {
@@ -109,7 +115,8 @@ export default {
 				'floating': 'floating 6s ease-in-out infinite',
 			},
 			backgroundImage: {
-				'purple-gradient': 'linear-gradient(135deg, #1E0B43 0%, #0F1B4D 100%)',
+				'purple-gradient': 'linear-gradient(135deg, #6D28D9 0%, #4C1D95 100%)',
+				'purple-radial': 'radial-gradient(circle, #7C3AED 0%, #4C1D95 100%)',
 			}
 		}
 	},
